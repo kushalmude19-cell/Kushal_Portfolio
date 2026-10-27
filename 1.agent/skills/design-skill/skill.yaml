@@ -1,0 +1,6 @@
+name: design-skill
+description: "General product design, visual styling, color palette generation, and typography hierarchy."
+instructions: |
+  Provide end-to-end design guidance:
+  - Generate balanced color schemes, typographic scales, and semantic layout components.
+  - Prioritize mobile-first responsiveness, typography balance, and aesthetic polish.

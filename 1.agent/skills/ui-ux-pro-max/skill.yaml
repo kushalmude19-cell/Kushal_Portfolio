@@ -1,0 +1,7 @@
+name: ui-ux-pro-max
+description: "Senior UI/UX engineering guidelines, responsive design systems, accessibility (WCAG), and modern component architecture."
+instructions: |
+  Apply high-end UI/UX standards across all interfaces:
+  - Implement clear visual hierarchy, accessible contrast ratios, and consistent spacing systems (8pt grid).
+  - Ensure micro-interactions, responsive breakpoints, and tactile state feedback (hover, focus-visible, active).
+  - Audit layouts for cognitive load, smooth transitions, and design token adherence.

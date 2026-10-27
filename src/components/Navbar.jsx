@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, FolderGit2, Cpu, Award, FileText, User, Send, Download } from 'lucide-react';
 
 export default function Navbar() {
   const [activeTab, setActiveTab] = useState('Home');
+  const isNavigating = useRef(false);
+  const navTimeout = useRef(null);
 
   const navLinks = [
     { label: 'Home', href: '#home', id: 'home', icon: Home, shortLabel: 'Home' },
@@ -17,44 +19,64 @@ export default function Navbar() {
 
   // Scrollspy: Automatically track which section is currently active in viewport
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
+      // If user clicked a navigation item, pause scrollspy so it doesn't flutter across intermediary tabs
+      if (isNavigating.current) return;
 
-      // 1. If user scrolled near bottom, activate Contact
-      if (windowHeight + scrollY >= documentHeight - 140) {
-        setActiveTab('Contact');
-        return;
-      }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
 
-      // 2. Scan sections from bottom to top
-      for (let i = navLinks.length - 1; i >= 0; i--) {
-        const link = navLinks[i];
-        const element = document.getElementById(link.id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // Threshold of 220px accounts for sticky navbar + comfortable reading area
-          if (rect.top <= 220) {
-            setActiveTab(link.label);
-            break;
+          // 1. If user scrolled near bottom, activate Contact
+          if (windowHeight + scrollY >= documentHeight - 120) {
+            setActiveTab('Contact');
+            ticking = false;
+            return;
           }
-        }
+
+          // 2. Scan sections from bottom to top
+          for (let i = navLinks.length - 1; i >= 0; i--) {
+            const link = navLinks[i];
+            const element = document.getElementById(link.id);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              // Comfortable threshold for active section
+              if (rect.top <= 200) {
+                setActiveTab(link.label);
+                break;
+              }
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (navTimeout.current) clearTimeout(navTimeout.current);
+    };
   }, []);
 
   const handleNavClick = (e, link) => {
     e.preventDefault();
     setActiveTab(link.label);
+
+    // Lock scrollspy to prevent vibration while smooth scrolling across sections
+    isNavigating.current = true;
+    if (navTimeout.current) clearTimeout(navTimeout.current);
+
     const element = document.getElementById(link.id);
     if (element) {
-      const navOffset = 80;
+      const navOffset = 70;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - navOffset;
 
@@ -62,6 +84,11 @@ export default function Navbar() {
         top: Math.max(0, offsetPosition),
         behavior: 'smooth'
       });
+
+      // Release lock once smooth scroll settles
+      navTimeout.current = setTimeout(() => {
+        isNavigating.current = false;
+      }, 800);
     }
   };
 
@@ -153,13 +180,10 @@ export default function Navbar() {
             const Icon = link.icon;
 
             return (
-              <motion.button
+              <button
                 key={link.label}
                 onClick={(e) => handleNavClick(e, link)}
-                whileTap={{ scale: 0.9 }}
-                layout
-                transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                className={`relative flex items-center justify-center rounded-full transition-all duration-300 ${
+                className={`relative flex items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95 ${
                   isActive
                     ? 'py-1.5 px-3 bg-gradient-to-r from-cyan-500/25 to-sky-500/15 border border-cyan-400/40 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.35)] shrink-0'
                     : 'p-2 text-zinc-400 hover:text-white flex-1 min-w-[32px]'
@@ -175,17 +199,11 @@ export default function Navbar() {
 
                 {/* Show Label ONLY when Active for seamless 100% fit on any smartphone screen */}
                 {isActive && (
-                  <motion.span
-                    initial={{ opacity: 0, width: 0 }}
-                    animate={{ opacity: 1, width: 'auto' }}
-                    exit={{ opacity: 0, width: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-[10px] font-mono font-bold ml-1.5 text-cyan-300 tracking-tight whitespace-nowrap"
-                  >
+                  <span className="text-[10px] font-mono font-bold ml-1.5 text-cyan-300 tracking-tight whitespace-nowrap">
                     {link.shortLabel}
-                  </motion.span>
+                  </span>
                 )}
-              </motion.button>
+              </button>
             );
           })}
         </div>

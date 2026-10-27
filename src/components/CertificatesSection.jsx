@@ -34,7 +34,7 @@ export default function CertificatesSection() {
   };
 
   return (
-    <section id="certificates" className="py-20 relative bg-[#0A0D14] scroll-mt-20 border-t border-white/5">
+    <section id="certificates" className="py-20 relative bg-[#0A0D14] scroll-mt-20 border-t border-white/5 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">

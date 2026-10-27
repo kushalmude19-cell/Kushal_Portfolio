@@ -40,7 +40,7 @@ export default function ProjectsSection() {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <section id="modules" className="py-20 lg:py-28 relative bg-[#05070B] scroll-mt-16 border-t border-white/5">
+    <section id="modules" className="py-20 lg:py-28 relative bg-[#05070B] scroll-mt-16 border-t border-white/5 overflow-hidden">
       {/* Studio Radial Background Lighting */}
       <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
 

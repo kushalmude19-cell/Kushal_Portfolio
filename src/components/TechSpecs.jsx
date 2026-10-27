@@ -23,7 +23,7 @@ export default function TechSpecs() {
   const currentTierData = architectureTiers.find((t) => t.id === selectedTier) || architectureTiers[0];
 
   return (
-    <section id="specs" className="py-24 relative bg-[#0B0F17] scroll-mt-20">
+    <section id="specs" className="py-24 relative bg-[#0B0F17] scroll-mt-20 overflow-hidden">
       {/* Subtle background ambient blur */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-sky-500/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />

@@ -43,7 +43,7 @@ export default function ResumeSection() {
   ];
 
   return (
-    <section id="resume" className="py-20 lg:py-24 relative bg-[#0A0D14] scroll-mt-20 border-t border-white/5">
+    <section id="resume" className="py-20 lg:py-24 relative bg-[#0A0D14] scroll-mt-20 border-t border-white/5 overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-sky-500/5 rounded-full blur-[140px] pointer-events-none" />

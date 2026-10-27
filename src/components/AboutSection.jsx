@@ -70,7 +70,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-28 relative bg-[#05070B] scroll-mt-16 border-t border-white/5">
+    <section id="about" className="py-20 lg:py-28 relative bg-[#05070B] scroll-mt-16 border-t border-white/5 overflow-hidden">
       {/* Ambient background lighting */}
       <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-sky-500/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[130px] pointer-events-none" />

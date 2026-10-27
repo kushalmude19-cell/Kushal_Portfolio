@@ -31,7 +31,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#05070B] text-[#F9FAFB] flex flex-col selection:bg-cyan-500/30 selection:text-cyan-300 relative">
+    <div className="min-h-screen bg-[#05070B] text-[#F9FAFB] flex flex-col selection:bg-cyan-500/30 selection:text-cyan-300 relative w-full max-w-full overflow-x-hidden">
       {/* Top Silky Laser Scroll Progress Indicator */}
       <motion.div
         style={{ scaleX }}
@@ -43,7 +43,7 @@ export default function App() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-zinc-900/90 border border-cyan-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="fixed bottom-20 sm:bottom-6 right-6 z-50 bg-zinc-900/90 border border-cyan-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
           <span className="font-mono text-xs">{toastMessage}</span>
         </div>
@@ -52,8 +52,8 @@ export default function App() {
       {/* Top Navbar with Scrollspy & Mobile Bottom Dock */}
       <Navbar />
 
-      {/* Main Content */}
-      <main className="flex-1">
+      {/* Main Content with bottom padding to comfortably clear mobile bottom dock */}
+      <main className="flex-1 pb-20 md:pb-0">
         {/* Flagship Hero 3-column studio layout */}
         <Hero />
 

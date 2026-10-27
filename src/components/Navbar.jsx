@@ -141,13 +141,13 @@ export default function Navbar() {
 
       {/* ========================================================================= */}
       {/* 2. MOBILE DYNAMIC ISLAND / FLOATING BOTTOM DOCK                           */}
-      {/* Optimized for 1-handed thumb reach zone on smartphones                     */}
+      {/* Optimized for 1-handed thumb reach zone on smartphones - Zero Overflow     */}
       {/* ========================================================================= */}
       <nav
         aria-label="Mobile Navigation"
-        className="md:hidden fixed bottom-4 inset-x-0 mx-auto z-50 w-[95%] max-w-[420px] pointer-events-auto"
+        className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1rem)] max-w-[380px] pointer-events-auto"
       >
-        <div className="relative p-1.5 rounded-full bg-zinc-950/85 backdrop-blur-2xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_25px_rgba(6,182,212,0.18)] flex items-center justify-between">
+        <div className="relative p-1 rounded-full bg-zinc-950/90 backdrop-blur-2xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.9),0_0_20px_rgba(6,182,212,0.2)] flex items-center justify-between gap-0.5 overflow-hidden">
           {navLinks.map((link) => {
             const isActive = activeTab === link.label;
             const Icon = link.icon;
@@ -156,41 +156,34 @@ export default function Navbar() {
               <motion.button
                 key={link.label}
                 onClick={(e) => handleNavClick(e, link)}
-                whileTap={{ scale: 0.85 }}
-                className="relative flex flex-col items-center justify-center py-2 px-2.5 rounded-full transition-colors flex-1"
+                whileTap={{ scale: 0.9 }}
+                layout
+                transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                className={`relative flex items-center justify-center rounded-full transition-all duration-300 ${
+                  isActive
+                    ? 'py-1.5 px-3 bg-gradient-to-r from-cyan-500/25 to-sky-500/15 border border-cyan-400/40 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.35)] shrink-0'
+                    : 'p-2 text-zinc-400 hover:text-white flex-1 min-w-[32px]'
+                }`}
                 aria-label={link.label}
               >
-                {/* Active Glowing Pill Background */}
-                {isActive && (
-                  <motion.div
-                    layoutId="mobileActiveDockPill"
-                    className="absolute inset-0 bg-gradient-to-b from-cyan-500/25 to-cyan-500/10 border border-cyan-400/40 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.35)]"
-                    transition={{ type: 'spring', stiffness: 450, damping: 32 }}
-                  />
-                )}
-
                 {/* Icon */}
                 <Icon
-                  className={`w-4 h-4 relative z-10 transition-colors duration-200 ${
-                    isActive ? 'text-cyan-300 scale-110' : 'text-zinc-400'
+                  className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
+                    isActive ? 'text-cyan-300 scale-105' : 'text-zinc-400'
                   }`}
                 />
 
-                {/* Tiny Micro-Label on Active */}
-                <span
-                  className={`text-[9px] font-mono mt-0.5 relative z-10 tracking-tight transition-all duration-200 truncate max-w-[42px] ${
-                    isActive ? 'text-cyan-300 font-bold scale-100' : 'text-zinc-500 font-normal scale-95'
-                  }`}
-                >
-                  {link.shortLabel}
-                </span>
-
-                {/* Active Dot */}
+                {/* Show Label ONLY when Active for seamless 100% fit on any smartphone screen */}
                 {isActive && (
                   <motion.span
-                    layoutId="mobileActiveDockDot"
-                    className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,1)]"
-                  />
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 'auto' }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-[10px] font-mono font-bold ml-1.5 text-cyan-300 tracking-tight whitespace-nowrap"
+                  >
+                    {link.shortLabel}
+                  </motion.span>
                 )}
               </motion.button>
             );

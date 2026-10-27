@@ -124,7 +124,7 @@ export default function ProjectCard({ project, index, onInspect }) {
         </div>
 
         {/* Card Footer Actions */}
-        <div className="p-5 pt-3 border-t border-white/5 flex items-center justify-between gap-2 bg-white/[0.01]">
+        <div className="p-4 sm:p-5 pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-2.5 bg-white/[0.01]">
           <button
             onClick={() => onInspect?.(project)}
             className="flex items-center gap-1.5 text-xs font-mono font-semibold text-zinc-400 hover:text-cyan-300 transition-colors py-1 focus:outline-none"
@@ -134,7 +134,7 @@ export default function ProjectCard({ project, index, onInspect }) {
             <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
@@ -152,7 +152,7 @@ export default function ProjectCard({ project, index, onInspect }) {
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 hover:from-cyan-400 hover:to-sky-300 text-zinc-950 text-xs font-bold font-mono transition-all active:scale-95 shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                className="flex items-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 hover:from-cyan-400 hover:to-sky-300 text-zinc-950 text-xs font-bold font-mono transition-all active:scale-95 shadow-[0_0_15px_rgba(6,182,212,0.3)] whitespace-nowrap"
               >
                 <span>Live Demo</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />

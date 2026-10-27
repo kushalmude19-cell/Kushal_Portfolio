@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, Sparkles, ExternalLink, Mail, ArrowUpRight, Cpu, Layers, Terminal, Activity, CheckCircle2 } from 'lucide-react';
 import TiltCard from './TiltCard';
 
+import profilePhoto from '../assets/profile.jpg';
+
 export default function Hero() {
   const titles = [
     {
@@ -128,12 +130,10 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#05070B] via-transparent to-transparent opacity-80 z-10 pointer-events-none" />
 
             <img
-              src="/profile.jpg"
+              src={profilePhoto}
               alt="Kushal Rupsing Mude"
               className="w-full h-full object-cover object-top scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"
-              onError={(e) => {
-                e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
-              }}
+              loading="eager"
             />
 
             {/* Bottom Floating Status Pill on Portrait */}

@@ -15,6 +15,7 @@ import {
   School
 } from 'lucide-react';
 import TiltCard from './TiltCard';
+import profilePhoto from '../assets/profile.jpg';
 
 export default function AboutSection() {
   const educationList = [
@@ -115,12 +116,10 @@ export default function AboutSection() {
                 {/* Photo & Live Indicator */}
                 <div className="relative mb-6 rounded-2xl overflow-hidden aspect-[4/3] bg-zinc-900 border border-white/10">
                   <img 
-                    src="/profile.jpg" 
+                    src={profilePhoto} 
                     alt="Kushal Rupsing Mude" 
                     className="w-full h-full object-cover object-top filter grayscale contrast-110 group-hover:grayscale-0 transition-all duration-700"
-                    onError={(e) => {
-                      e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
-                    }}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-80" />
                   
